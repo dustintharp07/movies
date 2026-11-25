@@ -9,5 +9,9 @@ execute:
 #| message: false
 library(tidyverse)
 movies <- read_csv("data/movies.csv")
-movies
+```
+
+```{r}
+movies |>
+  summarise(across(everything(), \(column) sum(is.na(column))))
 ```
