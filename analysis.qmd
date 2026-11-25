@@ -42,3 +42,19 @@ movies_summary <- movies_gap |>
   filter(n >= 100) |>
   arrange(desc(mean_gap))
 ```
+
+```{r}
+ggplot(
+  movies_summary,
+  aes(x = fct_reorder(genre, mean_gap), y = mean_gap)
+) +
+  geom_col() +
+  geom_hline(yintercept = 0) +
+  coord_flip() +
+  labs(
+    title = "Critics vs. Audiences by Genre",
+    subtitle = "Genres with at least 100 films",
+    x = "Genre",
+    y = "Average Tomatometer minus audience score"
+  )
+```
