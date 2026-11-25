@@ -80,6 +80,25 @@ spiderman <- movies |>
   arrange(releaseDateTheaters)
 
 spiderman |>
-  select(title, actor, gap) |>
-  arrange(desc(gap))
+  mutate(title = factor(title, levels = spiderman$title)) |>
+  pivot_longer(
+    cols = c(tomatoMeter, audienceScore),
+    names_to = "score",
+    values_to = "value"
+  ) |>
+  mutate(score = recode(
+    score,
+    tomatoMeter = "Tomatometer",
+    audienceScore = "Audience"
+  )) |>
+  ggplot(aes(x = title, y = value, color = score, group = score)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Critics and audiences disagree across Spider-Man films",
+    x = "Film (release order)",
+    y = "Score",
+    color = "Score"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
