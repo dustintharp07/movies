@@ -16,3 +16,8 @@ movies <- read_csv("data/movies.csv")
 movies_clean <- movies |>
   separate_longer_delim(genre, delim = ", ")
 ```
+
+```{r}
+movies_clean |>
+  count(genre, sort = TRUE)
+```
