@@ -32,10 +32,9 @@ ggplot(movies, aes(x = tomatoMeter)) +
 movies_gap <- movies_clean |>
   mutate(gap = tomatoMeter - audienceScore)
 
-movies_gap |>
-  filter(gap < 0) |>
-  distinct(title, .keep_all = TRUE) |>
-  slice_min(gap, n = 8, with_ties = FALSE) |>
-  select(title, audienceScore, tomatoMeter, gap) |>
-  arrange(gap)
+movies |>
+  summarise(
+    tomatoMeter_zero = sum(tomatoMeter == 0, na.rm = TRUE),
+    audienceScore_zero = sum(audienceScore == 0, na.rm = TRUE)
+  )
 ```
