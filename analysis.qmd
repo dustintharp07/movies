@@ -27,3 +27,12 @@ ggplot(movies, aes(x = tomatoMeter)) +
     y = "Count"
   )
 ```
+
+```{r}
+movies_gap <- movies_clean |>
+  mutate(gap = tomatoMeter - audienceScore)
+
+movies_gap |>
+  select(title, audienceScore, tomatoMeter, gap) |>
+  slice_head(n = 5)
+```
